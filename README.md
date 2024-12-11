@@ -1,11 +1,5 @@
 
-<p align="center">![Uploading screentshot.png…]()
-
-    <img src="https://github.com/donwolfonline/vito.git/assets/61919774/8060fded-58e3-4d58-b58b-5b717b0718e9" alt="VitoDeploy>
-    <p align="center">
-        <a href="https://github.com/donwolfonline/vito.git"><img alt="GitHub Workflow Status" src="https://github.com/donwolfonline/vito.git.svg"></a>
-    </p>
-</p>
+![Uploading screentshot.png…]()
 
 ------
 ## About Vito
