@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vito - Open-Source Server Management Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0B1120'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-dark: #0B1120;
+            --text-gradient-from: #9F3FFC;
+            --text-gradient-to: #6F2FDC;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #E5E7EB;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .logo-text {
+            background: linear-gradient(135deg, var(--text-gradient-from), var(--text-gradient-to));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(159, 63, 252, 0.5);
+            animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px rgba(159, 63, 252, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(159, 63, 252, 0.5));
+            }
+        }
+        .floating-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .dot {
+            position: absolute;
+            background: #7F3FFC;
+            border-radius: 50%;
+            filter: blur(4px);
+            animation: float-around 20s infinite linear;
+            opacity: 0.15;
+        }
+        @keyframes float-around {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(100px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(50px, 100px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(to right, var(--text-gradient-from), var(--text-gradient-to));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .nav-link {
+            color: #9CA3AF;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #F3F4F6;
+        }
+        .primary-button {
+            background-color: #7F3FFC;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .secondary-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .dashboard-preview {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            background: #1E293B;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Floating Dots -->
+    <div class="floating-dots">
+        <div class="dot" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="dot" style="width: 150px; height: 150px; top: 20%; left: 80%; animation-delay: -5s;"></div>
+        <div class="dot" style="width: 80px; height: 80px; top: 60%; left: 15%; animation-delay: -10s;"></div>
+        <div class="dot" style="width: 120px; height: 120px; top: 70%; left: 70%; animation-delay: -15s;"></div>
+        <div class="dot" style="width: 60px; height: 60px; top: 40%; left: 40%; animation-delay: -7s;"></div>
+    </div>
+
+    <nav class="container mx-auto px-6 py-6 relative">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <span class="logo-text">Vito</span>
+            </div>
+            <div class="flex items-center space-x-8">
+                <a href="landing.html" class="nav-link">Home</a>
+                <a href="docs.html" class="nav-link">What is Vito?</a>
+                <a href="docs.html" class="nav-link">Get Started</a>
+                <span class="nav-link">1.11.2</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-12rem)]">
+            <div>
+                <h1 class="gradient-text mb-4">Vito</h1>
+                <h2 class="text-4xl font-bold text-white mb-4">Open-Source</h2>
+                <p class="text-xl text-gray-400 mb-8">
+                    Free and Self-Hosted<br>
+                    Server Management Tool
+                </p>
+                <div class="flex space-x-4">
+                    <a href="docs.html" class="primary-button">Documentation</a>
+                    <a href="https://github.com/donwolfonline/vito.git" class="secondary-button flex items-center">
+                        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="relative h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[70vh] max-h-[800px] min-h-[400px]">
+                    <!-- Server Icon -->
+                    <div class="absolute left-[20%] md:left-1/4 top-1/3 transform -translate-x-1/2 -translate-y-1/2 animate-float">
+                        <div class="bg-purple-900/20 p-4 md:p-6 lg:p-8 rounded-2xl backdrop-blur-sm border border-purple-700/30 shadow-lg shadow-purple-900/20">
+                            <svg class="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 text-purple-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M7 8h.01M7 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <!-- Connection Line -->
+                        <div class="absolute top-full left-1/2 w-px h-16 md:h-24 bg-gradient-to-b from-purple-500/50 to-transparent"></div>
+                    </div>
+
+                    <!-- Computer Icon -->
+                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-float-delayed">
+                        <div class="bg-purple-900/30 p-6 md:p-8 lg:p-10 rounded-2xl backdrop-blur-sm border border-purple-600/40 shadow-xl shadow-purple-900/30">
+                            <svg class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-purple-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 17h6m-3-3v3M4 17V7a2 2 0 012-2h12a2 2 0 012 2v10m-16 0v2a2 2 0 002 2h12a2 2 0 002-2v-2M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- Ripple Effect -->
+                        <div class="absolute inset-0 animate-ping-slow">
+                            <div class="absolute inset-0 rounded-2xl border border-purple-500/30"></div>
+                        </div>
+                        <!-- Additional Glow -->
+                        <div class="absolute inset-0 -z-10 animate-pulse-slow">
+                            <div class="absolute inset-0 rounded-2xl bg-purple-900/20 blur-xl"></div>
+                        </div>
+                    </div>
+
+                    <!-- Web Icon -->
+                    <div class="absolute right-[20%] md:right-1/4 top-1/3 transform translate-x-1/2 -translate-y-1/2 animate-float-more">
+                        <div class="bg-purple-900/20 p-4 md:p-6 lg:p-8 rounded-2xl backdrop-blur-sm border border-purple-700/30 shadow-lg shadow-purple-900/20">
+                            <svg class="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 text-purple-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <!-- Connection Line -->
+                        <div class="absolute top-full left-1/2 w-px h-16 md:h-24 bg-gradient-to-b from-purple-500/50 to-transparent"></div>
+                    </div>
+
+                    <!-- Connecting Lines -->
+                    <div class="absolute inset-0">
+                        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d="M25 40 L50 50 L75 40" class="stroke-purple-600/40" stroke-width="0.5" fill="none">
+                                <animate attributeName="stroke-opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M25 60 L50 50 L75 60" class="stroke-purple-600/40" stroke-width="0.5" fill="none">
+                                <animate attributeName="stroke-opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/>
+                            </path>
+                        </svg>
+                    </div>
+
+                    <!-- Background Glow -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 via-purple-800/15 to-purple-900/10 blur-3xl"></div>
+                    <!-- Additional Background Effects -->
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.1),transparent_70%)]"></div>
+                </div>
+
+            <style>
+                @keyframes float {
+                    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+                    50% { transform: translate(-50%, -50%) translateY(-10px); }
+                }
+                @keyframes float-delayed {
+                    0%, 100% { transform: translate(-50%, -50%); }
+                    50% { transform: translate(-50%, calc(-50% - 15px)); }
+                }
+                @keyframes float-more {
+                    0%, 100% { transform: translate(50%, -50%) translateY(0); }
+                    50% { transform: translate(50%, -50%) translateY(-12px); }
+                }
+                @keyframes ping-slow {
+                    0% { transform: scale(1); opacity: 0.8; }
+                    75%, 100% { transform: scale(1.8); opacity: 0; }
+                }
+                @keyframes pulse-slow {
+                    0%, 100% { opacity: 0.4; }
+                    50% { opacity: 0.1; }
+                }
+                .animate-float {
+                    animation: float 4s ease-in-out infinite;
+                }
+                .animate-float-delayed {
+                    animation: float-delayed 4s ease-in-out infinite;
+                }
+                .animate-float-more {
+                    animation: float-more 5s ease-in-out infinite;
+                }
+                .animate-ping-slow {
+                    animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+                }
+                .animate-pulse-slow {
+                    animation: pulse-slow 4s ease-in-out infinite;
+                }
+            </style>
+        </div>
+
+    </main>
+
+    <footer class="py-4 bg-[#0d1829]/50 border-t border-purple-900/10">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center text-sm">
+                <!-- Left side - Email -->
+                <a href="mailto:vito@vivoapp.xyz" class="text-gray-400 hover:text-purple-400 transition-colors duration-300 flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="text-xs">vito@vivoapp.xyz</span>
+                </a>
+
+                <!-- Center - Copyright -->
+                <div class="text-center text-gray-400 text-xs">
+                    <p>Made with ❤️ • Copyright &copy; <span id="currentYear"></span> Vito by VivoApps</p>
+                </div>
+
+                <!-- Right side - Social Icons -->
+                <div class="flex items-center space-x-4">
+                    <a href="https://github.com/donwolfonline/vito.git" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-purple-400 transition-colors duration-300">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/vitovivo" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-purple-400 transition-colors duration-300">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-purple-400 transition-colors duration-300">
+                        <svg class="w-4 h-4" viewBox="0 0 76 65" fill="currentColor">
+                            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update copyright year automatically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

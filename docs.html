@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vito Documentation - Open-Source Server Management Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0B1120'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-dark: #0B1120;
+            --text-gradient-from: #9F3FFC;
+            --text-gradient-to: #6F2FDC;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #E5E7EB;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .logo-text {
+            background: linear-gradient(135deg, var(--text-gradient-from), var(--text-gradient-to));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(159, 63, 252, 0.5);
+            animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px rgba(159, 63, 252, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(159, 63, 252, 0.5));
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(to right, var(--text-gradient-from), var(--text-gradient-to));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .nav-link {
+            color: #9CA3AF;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #F3F4F6;
+        }
+        .nav-link.active {
+            color: #7F3FFC;
+        }
+        .primary-button {
+            background-color: #7F3FFC;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .secondary-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .doc-section {
+            scroll-margin-top: 2rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-dark">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-sm border-b border-purple-900/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="landing.html" class="logo-text">Vito</a>
+                </div>
+                <div class="flex items-center space-x-8">
+                    <a href="landing.html" class="nav-link">Home</a>
+                    <a href="docs.html" class="nav-link">What is Vito?</a>
+                    <a href="/login" class="nav-link">Get Started</a>
+                    <span class="nav-link">1.11.2</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="flex min-h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 fixed h-[calc(100vh-4rem)] overflow-y-auto bg-dark border-r border-purple-900/10" style="top: 4rem;">
+            <nav class="p-6 space-y-8">
+                <!-- Introduction -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Getting Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#introduction" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Introduction</a></li>
+                        <li><a href="#what-is-vito" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">What is Vito?</a></li>
+                        <li><a href="#installation" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Installation</a></li>
+                        <li><a href="#configuration" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Configuration</a></li>
+                        <li><a href="#securing" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Securing</a></li>
+                        <li><a href="#update" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Update</a></li>
+                        <li><a href="#upgrade" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Upgrade</a></li>
+                        <li><a href="#contribution" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Contribution Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Servers -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Servers</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#create-server" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Create Server</a></li>
+                        <li><a href="#server-providers" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Server Providers</a></li>
+                        <li><a href="#server-types" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Server Types</a></li>
+                    </ul>
+                </div>
+
+                <!-- Database -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Database</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#database" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Database Management</a></li>
+                        <li><a href="#database-backups" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Database Backups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#php" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">PHP</a></li>
+                        <li><a href="#firewall" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Firewall</a></li>
+                        <li><a href="#cronjobs" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">CronJobs</a></li>
+                        <li><a href="#ssh-keys" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">SSH Keys</a></li>
+                        <li><a href="#monitoring" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Monitoring</a></li>
+                        <li><a href="#console" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Console</a></li>
+                        <li><a href="#redis" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Redis</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sites -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Sites</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#create-site" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Create Site</a></li>
+                        <li><a href="#application" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Application</a></li>
+                        <li><a href="#ssl" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">SSL</a></li>
+                        <li><a href="#queues" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Queues</a></li>
+                    </ul>
+                </div>
+
+                <!-- Settings -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Settings</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#profile" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Profile</a></li>
+                        <li><a href="#projects" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Projects</a></li>
+                        <li><a href="#server-providers-settings" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Server Providers</a></li>
+                        <li><a href="#source-controls" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Source Controls</a></li>
+                        <li><a href="#notification-channels" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Notification Channels</a></li>
+                        <li><a href="#storage-providers" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Storage Providers</a></li>
+                        <li><a href="#tags" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Tags</a></li>
+                    </ul>
+                </div>
+
+                <!-- Other -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Other</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#other-features" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Other Features</a></li>
+                        <li><a href="#scripts" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Scripts</a></li>
+                        <li><a href="#logs" class="nav-link text-gray-300 hover:text-purple-400 block transition-colors duration-200">Logs</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 ml-64 min-h-screen pb-20">
+            <!-- Introduction -->
+            <section id="introduction" class="doc-section mb-12">
+                <h1 class="text-3xl font-bold text-purple-400 mb-6">Introduction</h1>
+                <p class="text-gray-300">Welcome to the Vito documentation. This guide will help you get started with Vito, a powerful server management tool.</p>
+            </section>
+
+            <!-- What is Vito? -->
+            <section id="what-is-vito" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">What is Vito?</h2>
+                <p class="text-gray-300 mb-4">Vito is an open-source server management tool designed to simplify your server administration tasks. It provides a modern, intuitive interface for managing servers, applications, databases, and more.</p>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Installation</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Requirements</h3>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Ubuntu 20.04 or higher</li>
+                        <li>PHP 8.1 or higher</li>
+                        <li>Composer</li>
+                        <li>Git</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Configuration -->
+            <section id="configuration" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Configuration</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Environment Setup</h3>
+                    <p class="text-gray-300 mb-4">Configure your application by editing the .env file with your specific settings:</p>
+                    <div class="bg-gray-900 rounded-lg p-4">
+                        <pre class="text-gray-300">
+APP_NAME=Vito
+APP_ENV=production
+APP_DEBUG=false
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=vito
+DB_USERNAME=root
+DB_PASSWORD=secret</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Securing -->
+            <section id="securing" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Securing</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Security Best Practices</h3>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Use strong passwords and keep them secret</li>
+                        <li>Keep your server and applications up to date</li>
+                        <li>Use a firewall to block unauthorized access</li>
+                        <li>Monitor your server logs for suspicious activity</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Update -->
+            <section id="update" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Update</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Update Vito</h3>
+                    <p class="text-gray-300 mb-4">To update Vito, run the following command:</p>
+                    <div class="bg-gray-900 rounded-lg p-4">
+                        <code class="text-gray-300">composer update</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upgrade -->
+            <section id="upgrade" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Upgrade</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Upgrade Vito</h3>
+                    <p class="text-gray-300 mb-4">To upgrade Vito, run the following command:</p>
+                    <div class="bg-gray-900 rounded-lg p-4">
+                        <code class="text-gray-300">composer update --with-all-dependencies</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contribution Guide -->
+            <section id="contribution" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Contribution Guide</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Contributing to Vito</h3>
+                    <p class="text-gray-300 mb-4">We welcome contributions to Vito. Here's how you can get started:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Fork the repository on GitHub</li>
+                        <li>Create a new branch for your feature or bug fix</li>
+                        <li>Commit your changes and push them to your fork</li>
+                        <li>Open a pull request to merge your changes into the main repository</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Create Server -->
+            <section id="create-server" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Create Server</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Creating a New Server</h3>
+                    <p class="text-gray-300 mb-4">To create a new server, follow these steps:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Click on the "Create Server" button</li>
+                        <li>Enter the server details, such as the name and description</li>
+                        <li>Select the server provider and plan</li>
+                        <li>Click on the "Create" button to create the server</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Server Providers -->
+            <section id="server-providers" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Server Providers</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Supported Server Providers</h3>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>DigitalOcean</li>
+                        <li>AWS</li>
+                        <li>Google Cloud</li>
+                        <li>Custom VPS</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Server Types -->
+            <section id="server-types" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Server Types</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Supported Server Types</h3>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Web Servers</li>
+                        <li>Database Servers</li>
+                        <li>Cache Servers</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Database -->
+            <section id="database" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Database</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Database Management</h3>
+                    <p class="text-gray-300 mb-4">Vito supports the following databases:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>MySQL</li>
+                        <li>MariaDB</li>
+                        <li>PostgreSQL</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Database Backups -->
+            <section id="database-backups" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Database Backups</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Database Backup Options</h3>
+                    <p class="text-gray-300 mb-4">Vito provides the following database backup options:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Manual backups</li>
+                        <li>Scheduled backups</li>
+                        <li>Automatic backups</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- PHP -->
+            <section id="php" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">PHP</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">PHP Management</h3>
+                    <p class="text-gray-300 mb-4">Vito supports the following PHP versions:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>PHP 7.4</li>
+                        <li>PHP 8.0</li>
+                        <li>PHP 8.1</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Firewall -->
+            <section id="firewall" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Firewall</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Firewall Configuration</h3>
+                    <p class="text-gray-300 mb-4">Vito provides a built-in firewall that can be configured to allow or block incoming traffic.</p>
+                </div>
+            </section>
+
+            <!-- CronJobs -->
+            <section id="cronjobs" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">CronJobs</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">CronJob Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage cron jobs for your applications.</p>
+                </div>
+            </section>
+
+            <!-- SSH Keys -->
+            <section id="ssh-keys" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">SSH Keys</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">SSH Key Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage SSH keys for your servers.</p>
+                </div>
+            </section>
+
+            <!-- Monitoring -->
+            <section id="monitoring" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Monitoring</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Server Monitoring</h3>
+                    <p class="text-gray-300 mb-4">Vito provides real-time monitoring of your servers, including CPU usage, memory usage, and disk usage.</p>
+                </div>
+            </section>
+
+            <!-- Console -->
+            <section id="console" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Console</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Console Access</h3>
+                    <p class="text-gray-300 mb-4">Vito provides console access to your servers, allowing you to run commands and manage your server remotely.</p>
+                </div>
+            </section>
+
+            <!-- Redis -->
+            <section id="redis" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Redis</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Redis Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage Redis instances for your applications.</p>
+                </div>
+            </section>
+
+            <!-- Create Site -->
+            <section id="create-site" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Create Site</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Creating a New Site</h3>
+                    <p class="text-gray-300 mb-4">To create a new site, follow these steps:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Click on the "Create Site" button</li>
+                        <li>Enter the site details, such as the name and description</li>
+                        <li>Select the server and database</li>
+                        <li>Click on the "Create" button to create the site</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Application -->
+            <section id="application" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Application</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Application Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage applications for your sites.</p>
+                </div>
+            </section>
+
+            <!-- SSL -->
+            <section id="ssl" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">SSL</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">SSL Certificate Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage SSL certificates for your sites.</p>
+                </div>
+            </section>
+
+            <!-- Queues -->
+            <section id="queues" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Queues</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Queue Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage queues for your applications.</p>
+                </div>
+            </section>
+
+            <!-- Profile -->
+            <section id="profile" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Profile</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">User Profile Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage user profiles.</p>
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Projects</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Project Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage projects.</p>
+                </div>
+            </section>
+
+            <!-- Server Providers Settings -->
+            <section id="server-providers-settings" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Server Providers Settings</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Server Provider Settings</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage server provider settings.</p>
+                </div>
+            </section>
+
+            <!-- Source Controls -->
+            <section id="source-controls" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Source Controls</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Source Control Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage source controls.</p>
+                </div>
+            </section>
+
+            <!-- Notification Channels -->
+            <section id="notification-channels" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Notification Channels</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Notification Channel Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage notification channels.</p>
+                </div>
+            </section>
+
+            <!-- Storage Providers -->
+            <section id="storage-providers" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Storage Providers</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Storage Provider Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage storage providers.</p>
+                </div>
+            </section>
+
+            <!-- Tags -->
+            <section id="tags" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Tags</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Tag Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage tags.</p>
+                </div>
+            </section>
+
+            <!-- Other Features -->
+            <section id="other-features" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Other Features</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Other Features</h3>
+                    <p class="text-gray-300 mb-4">Vito has many other features, including:</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Server monitoring</li>
+                        <li>Application monitoring</li>
+                        <li>Database monitoring</li>
+                        <li>Queue monitoring</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Scripts -->
+            <section id="scripts" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Scripts</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Script Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage scripts.</p>
+                </div>
+            </section>
+
+            <!-- Logs -->
+            <section id="logs" class="doc-section mb-12">
+                <h2 class="text-2xl font-bold text-purple-400 mb-6">Logs</h2>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-medium text-purple-400">Log Management</h3>
+                    <p class="text-gray-300 mb-4">Vito allows you to manage logs.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Highlight active section in navigation
+        const navLinks = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('.doc-section');
+
+        function setActiveLink() {
+            const fromTop = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const link = document.querySelector(`.sidebar-link[href="#${section.id}"]`);
+                if (!link) return;
+
+                const { top, bottom } = section.getBoundingClientRect();
+                const sectionTop = top + window.pageYOffset;
+                const sectionBottom = bottom + window.pageYOffset;
+
+                if (fromTop >= sectionTop && fromTop <= sectionBottom) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink();
+    </script>
+</body>
+</html>
