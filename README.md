@@ -1,8 +1,8 @@
 
 <p align="center">
-    <img src="https://github.com/vitodeploy/vito/assets/61919774/8060fded-58e3-4d58-b58b-5b717b0718e9" alt="VitoDeploy>
+    <img src="https://github.com/donwolfonline/vito.git/assets/61919774/8060fded-58e3-4d58-b58b-5b717b0718e9" alt="VitoDeploy>
     <p align="center">
-        <a href="https://github.com/vitodeploy/vito/actions"><img alt="GitHub Workflow Status" src="https://github.com/vitodeploy/vito/workflows/tests/badge.svg"></a>
+        <a href="https://github.com/donwolfonline/vito.git"><img alt="GitHub Workflow Status" src="https://github.com/donwolfonline/vito.git.svg"></a>
     </p>
 </p>
 
@@ -14,7 +14,7 @@ Vito is a self-hosted web application that helps you manage your servers and dep
 ## Quick Start
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/vitodeploy/vito/1.x/scripts/install.sh)
+bash <(curl -Ls https://github.com/donwolfonline/vito.git/vito/1.x/scripts/install.sh)
 ```
 
 ## Features
@@ -32,11 +32,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/vitodeploy/vito/1.x/scripts/in
 ## Useful Links
 
 - [Documentation](https://vitodeploy.com)
-- [Install on Server](https://vitodeploy.com/introduction/installation.html#install-on-vps-recommended)
-- [Install via Docker](https://vitodeploy.com/introduction/installation.html#install-via-docker)
-- [Roadmap](https://github.com/orgs/vitodeploy/projects/5)
-- [Video Demo](https://youtu.be/AbmUOBDOc28)
-- [Discord](https://discord.gg/uZeeHZZnm5)
+- [Install on Server](https://github.com/donwolfonline/vito.git/introduction/installation.html#install-on-vps-recommended)
+- [Install via Docker](https://github.com/donwolfonline/vito.git/introduction/installation.html#install-via-docker)
+- [Roadmap](https://github.com/donwolfonline/vito.git/projects/5)
+- [Video Demo](https://youtu.be/donwolfonline)
+- [Discord](https://discord.gg/r4g5F3S9)
 - [Contribution](/CONTRIBUTING.md)
 - [Security](/SECURITY.md)
 
