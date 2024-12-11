@@ -57,3 +57,6 @@ bash <(curl -Ls https://github.com/donwolfonline/vito.git/vito/1.x/scripts/insta
 - Prettier
 - Postcss
 - Flowbite
+
+# Vito Monitor
+npm i vitomonitor
