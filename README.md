@@ -2,7 +2,16 @@
 <img width="1163" alt="screentshot" src="https://github.com/user-attachments/assets/40b6aa09-31d0-4a24-8308-5f913ec7e3b2">
 
 
+## Website
+
+https://vito.vivoapp.xyz
+
+## Documentation
+
+https://vito.vivoapp.xyz/docs.html
+
 ------
+
 ## About Vito
 
 Vito is a self-hosted web application that helps you manage your servers and deploy your PHP applications into production servers without a hassle.
